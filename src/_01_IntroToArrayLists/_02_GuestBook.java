@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class _02_GuestBook implements ActionListener {
 	
@@ -21,8 +22,11 @@ public class _02_GuestBook implements ActionListener {
 		
 		panel.add(button);
 		panel.add(button2);
+		panel.add(textarea);
+		textarea.setEditable(false);
 		button.addActionListener(this);
 		button2.addActionListener(this);
+		
 	}
 	// Create a GUI with two buttons. One button reads "Add Name" and the other button reads "View Names". 
 	// When the add name button is clicked, display an input dialog that asks the user to enter a name. Add
@@ -37,6 +41,9 @@ public class _02_GuestBook implements ActionListener {
 	JPanel panel=new JPanel();
 	JButton button= new JButton("Add Name");
 	JButton button2= new JButton("View Names");
+	JTextArea textarea = new JTextArea(1, 20);
+	String allnames= "";
+	int guestnumber;
 	ArrayList <String> guestlist=new ArrayList();
 	
 	public static void main(String[] args) {
@@ -53,10 +60,18 @@ public class _02_GuestBook implements ActionListener {
 		else if(e.getSource()==button2) {
 			for(int i=0; i<guestlist.size(); i++) {	
 				String s= guestlist.get(i);
-				int guestnumber= i+1;
+				guestnumber= i+1;
+				if (guestnumber<guestlist.size()) {
+					allnames=allnames+"Guest #"+guestnumber+": "+guestlist.get(i)+"\n";
+				}
+				else if (guestnumber==guestlist.size()) {
+					allnames=allnames+"Guest #"+guestnumber+": "+guestlist.get(i);
+				}
 				//jop prints one at a time instead of in one list like it should.
-			JOptionPane.showMessageDialog(null, "Guest #"+guestnumber+": " +s);
+			//JOptionPane.showMessageDialog(null, "Guest #"+guestnumber+": " +s);
+			
 			}
+			textarea.setText(allnames);
 		}
 	}
 	
