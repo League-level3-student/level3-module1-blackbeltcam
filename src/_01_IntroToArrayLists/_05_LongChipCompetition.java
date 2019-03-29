@@ -20,14 +20,49 @@ public class _05_LongChipCompetition {
 	}
 
 	public void findtheChip() {
-		int longestchip = 0;
-		for (int i = 0; i < getTheBand().size(); i++) {
-			theBeatles.get(i);
-			if (chip > longestchip) {
-				chip = longestchip;
+		double longestchip = 0.0;
+		String haslongchip = " ";
+
+		for (int i = 0; i < theBeatles.size(); i++) {
+			Beatle c = theBeatles.get(i);
+			ArrayList<Chip> cl = c.getChips();
+			for (int z = 0; z < cl.size(); z++) {
+				double chiplength = cl.get(z).getLength();
+				if (chiplength > longestchip) {
+					longestchip = chiplength;
+					haslongchip = c.getName();
+				}
 			}
 		}
+		System.out.println(haslongchip + " has the longest chip with a length of " + longestchip);
+
 	}
+	// ArrayList<String> s = c.getChips();
+	// for (int j = 0; j < s.size(); j++) {
+	// s.get(j);
+	// if (s.get(j) == "diamond") {
+
+	// String yournamehere = c.getName();
+	// System.out.println(
+	// yournamehere + " had the diamond \n" + deadcrows + " Crow(s) died in the
+	// procces.");
+	// break;
+	// }
+	// }
+	// }
+	//
+	// }
+	//
+
+	//
+	// int longestchip = 0;
+	// for (int i = 0; i < getTheBand().size(); i++) {
+	// theBeatles.get(i);
+	// if (chip > longestchip) {
+	// chip = longestchip;
+	// }
+	// }
+	// }
 
 	private void initializeBeatles() {
 		Beatle george = new Beatle("George");
