@@ -15,7 +15,7 @@ public class _02_TextUndoRedo implements KeyListener {
 	JFrame frame = new JFrame("TextUndoRedo");
 	JPanel panel = new JPanel();
 	JLabel label = new JLabel();
-
+	Stack<String> backspace = new Stack<String>();
 	Stack<String> undo = new Stack<String>();
 	/*
 	 * Create a JFrame with a JPanel and a JLabel.
@@ -38,7 +38,6 @@ public class _02_TextUndoRedo implements KeyListener {
 
 	_02_TextUndoRedo() {
 
-		Stack<String> backspace = new Stack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setSize(500, 500);
@@ -64,12 +63,24 @@ public class _02_TextUndoRedo implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		int yui = e.getKeyCode();
+		System.out.println(yui);
 		char kcode = e.getKeyChar();
-		typedstr += "" + kcode;
-		label.setText(typedstr);
+		String s = Character.toString(kcode);
+		System.out.println();
+
 		if (e.getKeyCode() == 8) {
-			typedstr = typedstr.substring(typedstr.length() - 1);
+			backspace.push("" + typedstr.charAt(typedstr.length() - 1));
+			typedstr = typedstr.substring(0, typedstr.length() - 1);
+		} else if (e.getKeyCode() == 92) {
+			String hjkl = backspace.pop();
+			System.out.println(hjkl);
+			typedstr += hjkl;
+		} else {
+			typedstr += "" + kcode;
 		}
+
+		label.setText(typedstr);
 	}
 
 	@Override
