@@ -3,6 +3,8 @@ package _06_Intro_To_Hash_Maps;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,27 +36,28 @@ public class _02_LogSearch implements ActionListener {
 	 *
 	 */
 	HashMap<Integer, String> hmap = new HashMap<Integer, String>();
+	TreeMap<Integer, String> tmap = new TreeMap<Integer, String>();
 	JFrame frame = new JFrame("Log Search");
 	JPanel panel = new JPanel();
-	JButton button1 = new JButton("Add Entry");
-	JButton button2 = new JButton("Search by ID");
-	JButton button3 = new JButton("View List");
+	JButton addEntry = new JButton("Add Entry");
+	JButton searchByID = new JButton("Search by ID");
+	JButton viewList = new JButton("View List");
 	JButton button4 = new JButton();
 
 	public _02_LogSearch() {
 		frame.add(panel);
-		panel.add(button1);
-		panel.add(button2);
-		panel.add(button3);
+		panel.add(addEntry);
+		panel.add(searchByID);
+		panel.add(viewList);
 		// panel.add(button4);
 
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		
-		button1.addActionListener(this);
-		button2.addActionListener(this);
-		button3.addActionListener(this);
+		addEntry.addActionListener(this);
+		searchByID.addActionListener(this);
+		viewList.addActionListener(this);
 	}
 
 	public static void main(String[] args) {
@@ -64,11 +67,35 @@ public class _02_LogSearch implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getSource()==button1) {
+		if (e.getSource()==addEntry) {
 			String ID = JOptionPane.showInputDialog("Enter an ID Number");
 			String Name = JOptionPane.showInputDialog("Enter a name");
 			int intID=Integer.parseInt(ID);
 			hmap.put(intID, Name);
+		}
+		if (e.getSource()==searchByID) {
+			String sID = JOptionPane.showInputDialog("Seach for a name with an ID Number");
+			int intsID=Integer.parseInt(sID);
+			if (hmap.containsKey(intsID)) {
+				String name=hmap.get(intsID);
+				JOptionPane.showMessageDialog(null, "The name for ID #"+intsID+" is "+ name);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "That entry does not exist");
+			}
+			
+			
+		}
+		if (e.getSource()==viewList) {
+			String message="";
+			tmap.putAll(hmap);
+			for(Map.Entry<Integer, String>entry:tmap.entrySet()) {
+				message+=("ID: "+entry.getKey()+" Name: "+entry.getValue()+"\n");
+				
+					
+				
+			}
+			JOptionPane.showMessageDialog(null, message);
 		}
 	}
 
